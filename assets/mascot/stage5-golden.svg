@@ -1,0 +1,103 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bodyGradient" cx="0.3" cy="0.3" r="0.8">
+      <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#ffb300;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff8f00;stop-opacity:1" />
+    </radialGradient>
+    <radialGradient id="headGradient" cx="0.3" cy="0.3" r="0.8">
+      <stop offset="0%" style="stop-color:#fff176;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#ffd700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffb300;stop-opacity:1" />
+    </radialGradient>
+    <radialGradient id="combGradient" cx="0.3" cy="0.3" r="0.8">
+      <stop offset="0%" style="stop-color:#e65100;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#bf360c;stop-opacity:1" />
+    </radialGradient>
+    <radialGradient id="wattleGradient" cx="0.3" cy="0.3" r="0.8">
+      <stop offset="0%" style="stop-color:#e65100;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#bf360c;stop-opacity:1" />
+    </radialGradient>
+    <radialGradient id="shadow" cx="0.5" cy="0.9" r="0.6">
+      <stop offset="0%" style="stop-color:#ffb300;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#ffb300;stop-opacity:0" />
+    </radialGradient>
+    <radialGradient id="crownGradient" cx="0.3" cy="0.3" r="0.8">
+      <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffb300;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  
+  <!-- 影（光る効果） -->
+  <ellipse cx="32" cy="60" rx="22" ry="6" fill="url(#shadow)" />
+  
+  <!-- 体 -->
+  <ellipse cx="32" cy="42" rx="18" ry="20" fill="url(#bodyGradient)" stroke="#ff8f00" stroke-width="0.5"/>
+  
+  <!-- 首 -->
+  <ellipse cx="32" cy="26" rx="7" ry="10" fill="url(#headGradient)" stroke="#ffb300" stroke-width="0.5"/>
+  
+  <!-- 頭 -->
+  <circle cx="32" cy="18" r="8" fill="url(#headGradient)" stroke="#ffb300" stroke-width="0.5"/>
+  
+  <!-- 王冠 -->
+  <path d="M24 8 L28 12 L32 6 L36 12 L40 8 L38 14 L26 14 Z" fill="url(#crownGradient)" stroke="#ff8f00" stroke-width="0.5"/>
+  
+  <!-- 王冠の宝石 -->
+  <circle cx="32" cy="10" r="1.5" fill="#e91e63"/>
+  <circle cx="28" cy="11.5" r="1" fill="#2196f3"/>
+  <circle cx="36" cy="11.5" r="1" fill="#4caf50"/>
+  
+  <!-- トサカ（金色で豪華） -->
+  <path d="M26 14 Q28 10 30 14 Q32 8 34 14 Q36 10 38 14" fill="url(#combGradient)" stroke="#bf360c" stroke-width="0.5"/>
+  
+  <!-- 肉垂 -->
+  <ellipse cx="32" cy="24" rx="3" ry="4" fill="url(#wattleGradient)" stroke="#bf360c" stroke-width="0.3"/>
+  
+  <!-- くちばし -->
+  <polygon points="32,20 26,24 38,24" fill="#ff9800" stroke="#f57c00" stroke-width="0.5"/>
+  
+  <!-- 目（威厳のある） -->
+  <circle cx="27" cy="16" r="2" fill="#1a1a1a"/>
+  <circle cx="37" cy="16" r="2" fill="#1a1a1a"/>
+  <circle cx="27.3" cy="15.3" r="0.6" fill="#ffffff"/>
+  <circle cx="37.3" cy="15.3" r="0.6" fill="#ffffff"/>
+  
+  <!-- 翼（金色で大きく） -->
+  <ellipse cx="16" cy="38" rx="9" ry="16" fill="#ffd700" stroke="#ffb300" stroke-width="0.5"/>
+  <ellipse cx="48" cy="38" rx="9" ry="16" fill="#ffd700" stroke="#ffb300" stroke-width="0.5"/>
+  
+  <!-- 翼の羽根パターン（金色のグラデーション） -->
+  <ellipse cx="16" cy="32" rx="4" ry="8" fill="#ffb300"/>
+  <ellipse cx="48" cy="32" rx="4" ry="8" fill="#ffb300"/>
+  <ellipse cx="16" cy="42" rx="4" ry="7" fill="#ff8f00"/>
+  <ellipse cx="48" cy="42" rx="4" ry="7" fill="#ff8f00"/>
+  
+  <!-- 尻尾の羽根（豪華な金色） -->
+  <ellipse cx="32" cy="56" rx="12" ry="8" fill="#ffd700" stroke="#ffb300" stroke-width="0.5"/>
+  <ellipse cx="28" cy="58" rx="4" ry="5" fill="#ffb300"/>
+  <ellipse cx="36" cy="58" rx="4" ry="5" fill="#ffb300"/>
+  <ellipse cx="32" cy="60" rx="3" ry="4" fill="#ff8f00"/>
+  
+  <!-- 光るエフェクト -->
+  <circle cx="20" cy="25" r="1" fill="#fff176" opacity="0.8"/>
+  <circle cx="44" cy="30" r="1.5" fill="#fff176" opacity="0.6"/>
+  <circle cx="25" cy="45" r="1" fill="#fff176" opacity="0.7"/>
+  <circle cx="39" cy="50" r="1" fill="#fff176" opacity="0.8"/>
+  
+  <!-- 足（金色） -->
+  <ellipse cx="25" cy="58" rx="4" ry="3" fill="#ffb300"/>
+  <ellipse cx="39" cy="58" rx="4" ry="3" fill="#ffb300"/>
+  
+  <!-- 爪（金色） -->
+  <ellipse cx="21" cy="59.5" rx="1.2" ry="2" fill="#ff8f00"/>
+  <ellipse cx="25" cy="60" rx="1.2" ry="2" fill="#ff8f00"/>
+  <ellipse cx="29" cy="59.5" rx="1.2" ry="2" fill="#ff8f00"/>
+  <ellipse cx="35" cy="59.5" rx="1.2" ry="2" fill="#ff8f00"/>
+  <ellipse cx="39" cy="60" rx="1.2" ry="2" fill="#ff8f00"/>
+  <ellipse cx="43" cy="59.5" rx="1.2" ry="2" fill="#ff8f00"/>
+  
+  <!-- けづめ（金色） -->
+  <ellipse cx="25" cy="54" rx="1" ry="3" fill="#ff8f00"/>
+  <ellipse cx="39" cy="54" rx="1" ry="3" fill="#ff8f00"/>
+</svg>

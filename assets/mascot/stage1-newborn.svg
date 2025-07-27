@@ -1,0 +1,50 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bodyGradient" cx="0.3" cy="0.3" r="0.8">
+      <stop offset="0%" style="stop-color:#fff566;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#ffeb3b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fdd835;stop-opacity:1" />
+    </radialGradient>
+    <radialGradient id="headGradient" cx="0.3" cy="0.3" r="0.8">
+      <stop offset="0%" style="stop-color:#fff566;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#ffeb3b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fdd835;stop-opacity:1" />
+    </radialGradient>
+    <radialGradient id="shadow" cx="0.5" cy="0.9" r="0.6">
+      <stop offset="0%" style="stop-color:#fbc02d;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#fbc02d;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- 影 -->
+  <ellipse cx="32" cy="54" rx="14" ry="5" fill="url(#shadow)" />
+  
+  <!-- 体 -->
+  <ellipse cx="32" cy="44" rx="12" ry="14" fill="url(#bodyGradient)" stroke="#fbc02d" stroke-width="0.5"/>
+  
+  <!-- 頭 -->
+  <circle cx="32" cy="28" r="10" fill="url(#headGradient)" stroke="#fbc02d" stroke-width="0.5"/>
+  
+  <!-- くちばし -->
+  <polygon points="32,32 29,35 35,35" fill="#ff9800" stroke="#f57c00" stroke-width="0.5"/>
+  
+  <!-- 目 -->
+  <circle cx="28" cy="25" r="2.5" fill="#1a1a1a"/>
+  <circle cx="36" cy="25" r="2.5" fill="#1a1a1a"/>
+  <circle cx="28.5" cy="24" r="0.8" fill="#ffffff"/>
+  <circle cx="36.5" cy="24" r="0.8" fill="#ffffff"/>
+  
+  <!-- 産毛（小さなふわふわ感） -->
+  <circle cx="24" cy="30" r="1.5" fill="#fff566" opacity="0.6"/>
+  <circle cx="40" cy="28" r="1.2" fill="#fff566" opacity="0.6"/>
+  <circle cx="28" cy="20" r="1" fill="#fff566" opacity="0.6"/>
+  <circle cx="36" cy="18" r="1" fill="#fff566" opacity="0.6"/>
+  
+  <!-- 小さな翼の形 -->
+  <ellipse cx="22" cy="38" rx="3" ry="6" fill="#ffeb3b" opacity="0.8"/>
+  <ellipse cx="42" cy="38" rx="3" ry="6" fill="#ffeb3b" opacity="0.8"/>
+  
+  <!-- 足 -->
+  <ellipse cx="28" cy="55" rx="2" ry="1.5" fill="#ff9800"/>
+  <ellipse cx="36" cy="55" rx="2" ry="1.5" fill="#ff9800"/>
+</svg>

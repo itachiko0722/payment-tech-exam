@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支払い技術検定アプリ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100">
+    <div id="app" class="min-h-screen">
+        <!-- スタート画面 -->
+        <div id="startScreen" class="flex items-center justify-center min-h-screen">
+            <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+                <h1 class="text-3xl font-bold text-center mb-6 text-blue-600">支払い技術検定</h1>
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">カテゴリ選択</label>
+                    <select id="categorySelect" class="w-full p-2 border border-gray-300 rounded-md">
+                        <option value="all">すべて</option>
+                        <option value="payment_systems">決済システム</option>
+                        <option value="security">セキュリティ</option>
+                        <option value="regulations">法規制</option>
+                        <option value="fintech">フィンテック</option>
+                    </select>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">難易度</label>
+                    <select id="difficultySelect" class="w-full p-2 border border-gray-300 rounded-md">
+                        <option value="basic">初級</option>
+                        <option value="intermediate">中級</option>
+                        <option value="advanced">上級</option>
+                    </select>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">問題数</label>
+                    <input type="number" id="questionCount" value="10" min="5" max="30" class="w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <button onclick="startGame()" class="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition duration-200">
+                    検定を開始
+                </button>
+                <div class="mt-4 text-center">
+                    <button onclick="showProgress()" class="text-blue-600 hover:underline">学習進捗を見る</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ゲーム画面 -->
+        <div id="gameScreen" class="hidden">
+            <div class="bg-white shadow-md">
+                <div class="container mx-auto px-4 py-4">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center space-x-4">
+                            <span class="text-lg font-semibold">問題 <span id="currentQuestionNumber">1</span>/<span id="totalQuestions">10</span></span>
+                            <span class="text-lg">スコア: <span id="score" class="font-bold text-blue-600">0</span></span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 mr-1 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/>
+                                </svg>
+                                <span id="timer" class="font-mono text-lg">60</span>
+                            </div>
+                            <button onclick="pauseGame()" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 mr-2">
+                                一時停止
+                            </button>
+                            <button onclick="quitGame()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                                クイズをやめる
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mx-auto px-4 py-8">
+                <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl mx-auto">
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-gray-600">カテゴリ: <span id="questionCategory"></span></span>
+                            <span class="text-sm text-gray-600">難易度: <span id="questionDifficulty"></span></span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div id="progressBar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div id="questionContainer" class="mb-6">
+                        <h2 id="questionText" class="text-xl font-semibold mb-4"></h2>
+                        <div id="optionsContainer" class="space-y-3"></div>
+                    </div>
+
+                    <button id="submitAnswer" onclick="submitAnswer()" class="w-full bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition duration-200 disabled:bg-gray-400" disabled>
+                        回答を送信
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 結果画面 -->
+        <div id="resultScreen" class="hidden flex items-center justify-center min-h-screen">
+            <div class="bg-white p-8 rounded-lg shadow-lg max-w-2xl w-full">
+                <h2 class="text-2xl font-bold text-center mb-6">検定結果</h2>
+                <div class="text-center mb-6">
+                    <div class="text-5xl font-bold text-blue-600 mb-2"><span id="finalScore">0</span>点</div>
+                    <div class="text-xl text-gray-600">正解数: <span id="correctCount">0</span>/<span id="totalCount">10</span></div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold mb-3">カテゴリ別成績</h3>
+                    <div id="categoryResults" class="space-y-2"></div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold mb-3">獲得アチーブメント</h3>
+                    <div id="achievements" class="flex flex-wrap gap-2"></div>
+                </div>
+
+                <div class="flex space-x-4">
+                    <button onclick="reviewAnswers()" class="flex-1 bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700">
+                        解答を確認
+                    </button>
+                    <button onclick="restartGame()" class="flex-1 bg-green-600 text-white py-3 rounded-md hover:bg-green-700">
+                        もう一度挑戦
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 進捗画面 -->
+        <div id="progressScreen" class="hidden min-h-screen py-8">
+            <div class="container mx-auto px-4">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold">学習進捗</h2>
+                        <button onclick="backToStart()" class="text-blue-600 hover:underline">戻る</button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-700">総プレイ回数</h3>
+                            <p class="text-2xl font-bold text-blue-600" id="totalPlays">0</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-700">平均スコア</h3>
+                            <p class="text-2xl font-bold text-green-600" id="averageScore">0</p>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-700">最高スコア</h3>
+                            <p class="text-2xl font-bold text-purple-600" id="highScore">0</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-3">カテゴリ別正答率</h3>
+                        <div id="categoryStats" class="space-y-3"></div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3">獲得済みアチーブメント</h3>
+                        <div id="allAchievements" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 解答確認画面 -->
+        <div id="reviewScreen" class="hidden min-h-screen py-8">
+            <div class="container mx-auto px-4">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold">解答確認</h2>
+                        <button onclick="closeReview()" class="text-blue-600 hover:underline">戻る</button>
+                    </div>
+
+                    <div id="reviewContent" class="space-y-6">
+                        <!-- 解答確認内容がここに動的に生成される -->
+                    </div>
+
+                    <div class="mt-8 flex space-x-4">
+                        <button onclick="closeReview()" class="flex-1 bg-gray-600 text-white py-3 rounded-md hover:bg-gray-700">
+                            戻る
+                        </button>
+                        <button onclick="restartGame()" class="flex-1 bg-green-600 text-white py-3 rounded-md hover:bg-green-700">
+                            もう一度挑戦
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 一時停止モーダル -->
+        <div id="pauseModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-bold mb-4">一時停止中</h3>
+                <div class="space-y-3">
+                    <button onclick="resumeGame()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                        ゲームを再開
+                    </button>
+                    <button onclick="quitGame()" class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600">
+                        クイズをやめる
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- クイズ終了確認モーダル -->
+        <div id="quitModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white p-6 rounded-lg shadow-lg max-w-md">
+                <h3 class="text-xl font-bold mb-4">クイズを終了しますか？</h3>
+                <p class="text-gray-600 mb-6">現在の進捗は保存されません。本当に終了してもよろしいですか？</p>
+                <div class="flex space-x-3">
+                    <button onclick="cancelQuit()" class="flex-1 bg-gray-500 text-white py-2 rounded hover:bg-gray-600">
+                        キャンセル
+                    </button>
+                    <button onclick="confirmQuit()" class="flex-1 bg-red-500 text-white py-2 rounded hover:bg-red-600">
+                        終了する
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- マスコットキャラクター -->
+        <div id="mascotContainer" class="mascot-container hidden">
+            <div id="mascot" class="mascot stage-0" onclick="showMascotInfo()">
+                🌱
+                <div id="mascotTooltip" class="mascot-tooltip">
+                    Level 1: たまご
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
